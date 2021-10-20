@@ -1,11 +1,14 @@
 <template>
   <div class="home">
     <HelloWorld msg="Калькулятор" />
+
+    <!-- Два поля ввода -->
     <input v-model.number="operand1" type="number" id="opera1" />
     <input v-model.number="operand2" type="number" id="opera2" />
     = {{ result }}
     <br />
-    <!-- v-bind:disabled="operand === '/' && operand2 === 0" -->
+
+    <!-- КНОПКИ ОПЕРАНДОВ -->
     <button
       v-for="operand in operands"
       v-bind:key="operand"
@@ -16,18 +19,26 @@
     </button>
     <div v-if="error">Ошибка! {{ error }}</div>
 
+    <!-- ЧЕКБОКС КЛАВИАТУРЫ -->
     <div class="check-but">
       <input type="checkbox" id="checkbox" v-model="checked" />
       <label for="checkbox">Отобразить экранную клавиатуру</label>
     </div>
 
+    <!-- КНОПКИ КЛАВИАТУРЫ -->
     <div class="block-numbers">
-      <button v-show="checked" v-for="(number, idx) in numbuts" :key="idx">
+      <button
+        @click="writenum(numbuts[idx])"
+        v-show="checked"
+        v-for="(number, idx) in numbuts"
+        :key="idx"
+      >
         {{ number }}
       </button>
       <button v-show="checked">{{ backarrow }}</button>
     </div>
 
+    <!-- КНОПКИ ВЫБОРА -->
     <div class="but-radio"></div>
     <input
       value="Один"
@@ -45,8 +56,8 @@
       v-model="picked"
     />
     <label for="oper2">Поле №2</label>
-    <br />
 
+    <!-- ЛОГИ -->
     <div class="logs">
       <div v-for="(log, id) in logs" v-bind:key="id">{{ log }}</div>
     </div>
@@ -65,6 +76,7 @@ export default {
   },
   data() {
     return {
+      chek: "",
       picked: "",
       backarrow: "<=",
       checked: false,
@@ -80,9 +92,14 @@ export default {
   },
   methods: {
     autofoc(id) {
-      const oneinp = document.getElementById(id);
+      let oneinp = document.getElementById(id);
       oneinp.focus();
     },
+
+    writenum(num) {
+      this.operand1 += num;
+    },
+
     add() {
       this.result = this.operand1 + this.operand2;
     },
