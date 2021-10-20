@@ -1,21 +1,52 @@
 <template>
   <div class="home">
     <HelloWorld msg="Калькулятор" />
-    <input v-model.number="operand1" type="number" />
-    <input v-model.number="operand2" type="number" @input="notDivide($event)" />
+    <input v-model.number="operand1" type="number" id="opera1" />
+    <input v-model.number="operand2" type="number" id="opera2" />
     = {{ result }}
     <br />
-
+    <!-- v-bind:disabled="operand === '/' && operand2 === 0" -->
     <button
       v-for="operand in operands"
       v-bind:key="operand"
       v-bind:title="operand"
-      v-bind:disabled="operand1 === '' || operand2 === ''"
       @click="calculate(operand)"
     >
       {{ operand }}
     </button>
     <div v-if="error">Ошибка! {{ error }}</div>
+
+    <div class="check-but">
+      <input type="checkbox" id="checkbox" v-model="checked" />
+      <label for="checkbox">Отобразить экранную клавиатуру</label>
+    </div>
+
+    <div class="block-numbers">
+      <button v-show="checked" v-for="(number, idx) in numbuts" :key="idx">
+        {{ number }}
+      </button>
+      <button v-show="checked">{{ backarrow }}</button>
+    </div>
+
+    <div class="but-radio"></div>
+    <input
+      value="Один"
+      type="radio"
+      id="oper1"
+      @click="autofoc('opera1')"
+      v-model="picked"
+    />
+    <label for="oper1">Поле №1</label>
+    <input
+      value="Два"
+      type="radio"
+      id="oper2"
+      @click="autofoc('opera2')"
+      v-model="picked"
+    />
+    <label for="oper2">Поле №2</label>
+    <br />
+
     <div class="logs">
       <div v-for="(log, id) in logs" v-bind:key="id">{{ log }}</div>
     </div>
@@ -34,16 +65,24 @@ export default {
   },
   data() {
     return {
+      picked: "",
+      backarrow: "<=",
+      checked: false,
+      numbuts: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
       operands: ["+", "-", "*", "/"],
-      operand1: 0,
-      operand2: 0,
-      result: 0,
+      operand1: "",
+      operand2: "",
+      result: "",
       isButtonDisabled: true,
       error: "",
       logs: {}, //здесь будем хранить наши логи
     };
   },
   methods: {
+    autofoc(id) {
+      const oneinp = document.getElementById(id);
+      oneinp.focus();
+    },
     add() {
       this.result = this.operand1 + this.operand2;
     },
@@ -54,14 +93,16 @@ export default {
       this.result = this.operand1 * this.operand2;
     },
     divide() {
-      const { operand1, operand2 } = this;
+      const { operand2 } = this;
       if (operand2 === 0) {
         this.error = "Делить на 0 нельзя";
-      } else {
-        this.result = operand1 / operand2;
+        return;
       }
+      // else {
+      //   this.result = operand1 / operand2;
+      // }
 
-      // this.result = this.operand1 / this.operand2;
+      this.result = this.operand1 / this.operand2;
     },
 
     calculate(operation = "+") {
@@ -92,4 +133,16 @@ export default {
 </script>
 
 <style scoped>
+.block-numbers {
+  margin: 0px;
+  padding: 0px;
+}
+
+.check-but {
+  margin: 40px 0px 15px;
+}
+
+.but-radio {
+  margin: 20px;
+}
 </style>
