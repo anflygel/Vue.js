@@ -35,27 +35,28 @@
       >
         {{ number }}
       </button>
-      <button v-show="checked">{{ backarrow }}</button>
+      <button @click="backnum()" v-show="checked">{{ backarrow }}</button>
     </div>
 
     <!-- КНОПКИ ВЫБОРА -->
-    <div class="but-radio"></div>
-    <input
-      value="Один"
-      type="radio"
-      id="oper1"
-      @click="autofoc('opera1')"
-      v-model="picked"
-    />
-    <label for="oper1">Поле №1</label>
-    <input
-      value="Два"
-      type="radio"
-      id="oper2"
-      @click="autofoc('opera2')"
-      v-model="picked"
-    />
-    <label for="oper2">Поле №2</label>
+    <div v-show="checked" class="but-radio">
+      <input
+        value="1"
+        type="radio"
+        id="oper1"
+        @click="autofoc('opera1')"
+        v-model="picked"
+      />
+      <label for="oper1">Поле №1</label>
+      <input
+        value="2"
+        type="radio"
+        id="oper2"
+        @click="autofoc('opera2')"
+        v-model="picked"
+      />
+      <label for="oper2">Поле №2</label>
+    </div>
 
     <!-- ЛОГИ -->
     <div class="logs">
@@ -97,7 +98,27 @@ export default {
     },
 
     writenum(num) {
-      this.operand1 += num;
+      if (this.picked === "1") {
+        this.operand1 += num;
+        this.operand1 = Number(this.operand1);
+      }
+      if (this.picked === "2") {
+        this.operand2 += num;
+        this.operand2 = Number(this.operand2);
+      }
+    },
+
+    backnum() {
+      let op1 = String(this.operand1);
+      let op2 = String(this.operand2);
+      let res1 = op1.slice(0, -1);
+      let res2 = op2.slice(0, -1);
+      if (this.picked === "1") {
+        this.operand1 = Number(res1);
+      }
+      if (this.picked === "2") {
+        this.operand2 = Number(res2);
+      }
     },
 
     add() {
@@ -115,10 +136,6 @@ export default {
         this.error = "Делить на 0 нельзя";
         return;
       }
-      // else {
-      //   this.result = operand1 / operand2;
-      // }
-
       this.result = this.operand1 / this.operand2;
     },
 
@@ -160,6 +177,10 @@ export default {
 }
 
 .but-radio {
+  margin: 20px;
+}
+
+.logs {
   margin: 20px;
 }
 </style>
