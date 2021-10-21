@@ -1,4 +1,4 @@
-# fp
+# first-project
 
 ## Project setup
 ```
