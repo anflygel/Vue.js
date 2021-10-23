@@ -1,20 +1,23 @@
 <template>
   <!-- <div :class="[$style.wrapper]"> -->
-  <div :class="addPay">
-    <input placeholder="Amount" v-model="amount" />
-    <input placeholder="Type" v-model="type" />
-    <input placeholder="Date" v-model="date" />
-
-    <button @click="onSaveClick">Save!</button>
+  <div class="addPay">
+    <div class="input-flex">
+      <input class="table-input" placeholder="Date" v-model="date" />
+      <input class="table-input" placeholder="Category" v-model="category" />
+      <input class="table-input" placeholder="Value" v-model="value" />
+    </div>
+    <div class="button-flex">
+      <button class="table-input-button" @click="onSaveClick">Add +</button>
+    </div>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      amount: "",
-      type: "",
       date: "",
+      category: "",
+      value: "",
     };
   },
   computed: {
@@ -29,13 +32,43 @@ export default {
   methods: {
     onSaveClick() {
       const data = {
-        amount: +this.amount,
-        type: this.type,
         date: this.date || this.getCurrentDate,
+
+        category: this.category,
+
+        value: +this.value,
       };
       this.$emit("addNewPayment", data);
     },
   },
 };
 </script>
-<style lang="scss" module>
+<style lang="scss" scoped>
+.addPay {
+  width: 500px;
+  margin: 0 25px 25px 25px;
+}
+
+.table-input {
+  margin: 5px;
+  padding: 5px;
+}
+
+.input-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-flex {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table-input-button {
+  margin: 10px;
+  width: 150px;
+  padding: 10px 15px;
+  background: rgb(44, 235, 44);
+  border-color: rgb(105, 255, 173);
+}
+</style>

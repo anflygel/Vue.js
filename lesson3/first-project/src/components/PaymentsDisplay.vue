@@ -1,7 +1,12 @@
 <template>
   <!-- <div :class="[$style.wrapper]"> -->
-  <div :class="item - obj">
+  <!-- <div class="itemobj">
     {{ items }}
+  </div> -->
+  <div class="itemobj">
+    <div v-for="(item, idx) in items" :key="idx">
+      {{ item }}
+    </div>
   </div>
 </template>
 
@@ -10,10 +15,16 @@ export default {
   props: {
     items: {
       type: Array,
-      // default: [],
+      default: () => [],
     },
   },
 };
 </script>
 
-<style lang="scss" module>
+<style lang="scss" scoped>
+.itemobj {
+  margin-left: 60px;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+</style>
