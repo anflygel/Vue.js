@@ -5,13 +5,17 @@
       <header>
         <!-- <div :class="[$style.title]">My personal costs</div> -->
         <div class="header">My personal costs</div>
+        <h3>Total: {{ getFPV }}</h3>
       </header>
       <main>
         <div class="table-one">
           <button class="table-but" @click="check = !check">
             Add new cost +
           </button>
-          <AddPaymentForm v-show="check" @addNewPayment="addNewPayment" />
+          <AddPaymentForm
+            v-show="check"
+            @addNewPayment="addDataToPaymentList"
+          />
         </div>
         <hr />
         <div class="table">
@@ -29,11 +33,13 @@
   </div>
 </template>
 
-<script>
+<script defer>
 import PaymentsDisplay from "./components/PaymentsDisplay";
 import AddPaymentForm from "./components/AddPaymentForm";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
+  name: "App",
   components: {
     PaymentsDisplay,
     AddPaymentForm,
@@ -41,35 +47,51 @@ export default {
   data() {
     return {
       check: false,
-      paymentsList: [],
     };
   },
-  methods: {
-    fetchData() {
-      return [
-        {
-          date: "28.03.2020",
-          category: "Food",
-          value: 169,
-        },
-        {
-          date: "24.03.2020",
-          category: "Transport",
-          value: 360,
-        },
-        {
-          date: "24.03.2020",
-          category: "Food",
-          value: 532,
-        },
-      ];
+  computed: {
+    ...mapGetters({
+      paymentsList: "getPaymentsList",
+      category: "getCategoryList",
+    }),
+    getFPV() {
+      return this.$store.getters.getFullPaymentValue;
     },
-    addNewPayment(data) {
-      this.paymentsList = [...this.paymentsList, data];
+  },
+  methods: {
+    ...mapMutations({
+      myMutationName: "setPaymentListData",
+      addData: "addPaymentListData",
+    }),
+
+    // fetchData() {
+    //   const items = [];
+    //   for (let i = 1; i < 100; i++) {
+    //     items.push({
+    //       id: i,
+    //       date: this.getCurrentDate(),
+    //       category: "Food",
+    //       value: i,
+    //     });
+    //   }
+    //   return items;
+    // },
+
+    // addNewPayment(data) {
+    //   this.paymentsList = [...this.paymentsList, data];
+    // },
+
+    addDataToPaymentList(item) {
+      const date = new Date();
+      const data = { ...item, ...{ id: date.getMilliseconds() } };
+      this.addData(data);
     },
   },
   created() {
-    this.paymentsList = this.fetchData();
+    //  this.paymentsList = this.fetchData();
+    //  this.$store.commit("setPaymentListData", this.fetchData());
+    // this.myMutationName(this.fetchData());
+    this.$store.dispatch("fetchData");
   },
 };
 </script>
@@ -86,7 +108,10 @@ export default {
 }
 
 .table {
+  margin: 0 auto;
   display: flex;
+
+  width: 1040px;
 }
 
 .table-but {
@@ -96,8 +121,15 @@ export default {
   border-color: rgb(105, 255, 173);
 }
 
+// .text-table-id {
+//   width: 100%;
+//   margin: 25px 25px 25px 150px;
+// }
+
 .text-table {
-  margin: 20px 100px 20px;
+  text-align: center;
+  width: 258.75px;
+  margin: 25px;
 }
 
 .header {

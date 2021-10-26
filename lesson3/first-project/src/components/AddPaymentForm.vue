@@ -3,8 +3,9 @@
   <div class="addPay">
     <div class="input-flex">
       <input class="table-input" placeholder="Date" v-model="date" />
-      <input class="table-input" placeholder="Category" v-model="category" />
+      <!-- <input class="table-input" placeholder="Category" v-model="category" /> -->
       <input class="table-input" placeholder="Value" v-model="value" />
+      <select-category v-model="category" />
     </div>
     <div class="button-flex">
       <button class="table-input-button" @click="onSaveClick">Add +</button>
@@ -12,7 +13,11 @@
   </div>
 </template>
 <script>
+import SelectCategory from "./SelectCategory.vue";
+
 export default {
+  name: "AddPaymentForm",
+  components: { SelectCategory },
   data() {
     return {
       date: "",
