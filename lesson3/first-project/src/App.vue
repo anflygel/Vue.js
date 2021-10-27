@@ -26,7 +26,7 @@
         </div>
         <hr />
         <div class="table-form">
-          <PaymentsDisplay :items="paymentsList" />
+          <PaymentsDisplay :items="currentElements" />
         </div>
         <pagination
           @paginate="changePage"
@@ -67,13 +67,22 @@ export default {
     getFPV() {
       return this.$store.getters.getFullPaymentValue;
     },
+    currentElements() {
+      const { count, page } = this;
+      return this.paymentsList.slice(
+        count * (page - 1),
+        count * (page - 1) + count
+      );
+    },
   },
   methods: {
     ...mapMutations({
       myMutationName: "setPaymentListData",
       addData: "addPaymentListData",
     }),
-    changePage() {},
+    changePage(p) {
+      this.page = p;
+    },
     // fetchData() {
     //   const items = [];
     //   for (let i = 1; i < 100; i++) {
@@ -104,8 +113,6 @@ export default {
     this.$store.dispatch("fetchData");
   },
 };
-
-// console.log(paymentsList.length);
 </script>
 
 <style lang="scss">
