@@ -39,7 +39,7 @@
   </div>
 </template>
 
-<script>
+<script defer>
 import PaymentsDisplay from "./components/PaymentsDisplay";
 import AddPaymentForm from "./components/AddPaymentForm";
 import { mapMutations, mapGetters } from "vuex";
@@ -104,8 +104,6 @@ export default {
     this.$store.dispatch("fetchData");
   },
 };
-
-// console.log(paymentsList.length);
 </script>
 
 <style lang="scss">
