@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import products from "./products"
 
 Vue.use(Vuex)
 
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     setCategoryList(state, payload) {
       state.categoryList = payload
+    },
+    upgradeData(state, payload) {
+      state.categoryList = payload
     }
   },
   actions: {
@@ -40,12 +44,17 @@ export default new Vuex.Store({
               value: Math.floor(Math.random() * 99999)
             });
           }
+          console.log(products[4])
+
           resolve(items)
         }, 1000);
       }).then(res => {
-        dispatch('upgradeData', res);
+        dispatch('upgradeData', res)
+
+
       });
     },
+
     //   fetchCategoryList({ commit }) {
     //     return new Promise(resolve => {
     //       setTimeout(() => {
