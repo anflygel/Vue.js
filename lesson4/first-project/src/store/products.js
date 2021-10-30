@@ -20,9 +20,9 @@ let page4 = [
     { "id": 12, "date": "25.03.2020", "category": "Auto", "value": 333 }
 ]
 let page5 = [
-    { "id": 4, "date": "23.03.2020", "category": "IT", "value": 969 },
-    { "id": 5, "date": "24.03.2020", "category": "Auto", "value": 1500 },
-    { "id": 6, "date": "25.03.2020", "category": "Sport", "value": 200 }
+    { "id": 13, "date": "23.03.2020", "category": "IT", "value": 969 },
+    { "id": 14, "date": "24.03.2020", "category": "Auto", "value": 1500 },
+    { "id": 15, "date": "25.03.2020", "category": "Sport", "value": 200 }
 ]
 
 
