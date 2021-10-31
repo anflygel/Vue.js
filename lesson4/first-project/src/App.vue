@@ -2,8 +2,16 @@
   <!-- <div :class="[$style.wrapper]"> -->
   <div class="app">
     <div class="container">
+      <nav>
+        <a href="#dashboard">Dashboard</a> / <a href="#about">About</a> /
+        <a href="#notfound">404</a> /
+      </nav>
+
+      <dashboard v-if="pageName === 'dashboard'" />
+      <about v-if="pageName === 'about'" />
+      <not-found v-if="pageName === 'notfound'" />
+
       <header>
-        <!-- <div :class="[$style.title]">My personal costs</div> -->
         <div class="header">My personal costs</div>
         <h3>Total: {{ getFPV }}</h3>
       </header>
@@ -44,19 +52,25 @@ import PaymentsDisplay from "./components/PaymentsDisplay";
 import AddPaymentForm from "./components/AddPaymentForm";
 import { mapMutations, mapGetters } from "vuex";
 import Pagination from "./components/Pagination.vue";
-
+import Dashboard from "./views/Dashboard.vue";
+import NotFound from "./views/NotFound.vue";
+import About from "./views/About.vue";
 export default {
   name: "App",
   components: {
     PaymentsDisplay,
     AddPaymentForm,
     Pagination,
+    NotFound,
+    Dashboard,
+    About,
   },
   data() {
     return {
       check: false,
       page: 1,
       count: 10,
+      pageName: "",
     };
   },
   computed: {
