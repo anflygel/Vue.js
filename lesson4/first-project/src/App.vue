@@ -64,12 +64,12 @@ export default {
   //   this.paymentsList = [...this.paymentsList, data];
   // },
   // },
-  created() {
-    //  this.paymentsList = this.fetchData();
-    //  this.$store.commit("setPaymentListData", this.fetchData());
-    // this.myMutationName(this.fetchData());
-    this.$store.dispatch("fetchData");
-  },
+  // created() {
+  //   //  this.paymentsList = this.fetchData();
+  //   //  this.$store.commit("setPaymentListData", this.fetchData());
+  //   // this.myMutationName(this.fetchData());
+  //
+  // },
   // mounted() {
   // const links = document.querySelectorAll("a");
   // if (links?.length) {

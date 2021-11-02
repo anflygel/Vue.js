@@ -22,12 +22,7 @@
       <div class="table-form">
         <PaymentsDisplay :items="currentElements" />
       </div>
-      <pagination
-        @paginate="changePage"
-        :length="paymentsList.length"
-        :cur="page"
-        :n="count"
-      />
+      <pagination @paginate="changePage" :length="12" :cur="page" :n="count" />
     </main>
   </div>
 </template>
@@ -49,7 +44,7 @@ export default {
     return {
       check: false,
       page: 1,
-      count: 10,
+      count: 3,
       pageName: "",
     };
   },
@@ -76,6 +71,7 @@ export default {
     }),
     changePage(p) {
       this.page = p;
+      this.$store.dispatch("fetchData", this.page);
     },
     addDataToPaymentList(item) {
       const date = new Date();
@@ -86,11 +82,12 @@ export default {
       // });
     },
   },
-  mounted() {
-    const page = this.$route.params.page;
+  created() {
+    const page = this.$route.params.page || 1;
     if (page) {
       this.page = Number(page);
     }
+    this.$store.dispatch("fetchData", this.page);
   },
 };
 </script>
