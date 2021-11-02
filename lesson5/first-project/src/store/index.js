@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+
+
 function getCurrentDate() {
   const today = new Date();
   const d = today.getDate();
@@ -27,9 +29,9 @@ export default new Vuex.Store({
     setCategoryList(state, payload) {
       state.categoryList = payload
     },
-    // upgradeData(state, payload) {
-    //   state.categoryList = payload
-    // }
+    upgradeData(state, payload) {
+      state.categoryList = payload
+    }
   },
   actions: {
     fetchData({ dispatch }) {
@@ -37,25 +39,20 @@ export default new Vuex.Store({
         setTimeout(() => {
           const items = [];
           for (let i = 1; i < 101; i++) {
-            items.push(
-
-              {
-                id: i,
-                date: getCurrentDate(),
-                category: "Food",
-                value: Math.floor(Math.random() * 99999)
-              }
-            );
+            items.push({
+              id: i,
+              date: getCurrentDate(),
+              category: "Food",
+              value: Math.floor(Math.random() * 99999)
+            });
           }
-          // console.log(products[4])
-
           resolve(items)
         }, 1000);
       }).then(res => {
         dispatch('upgradeData', res)
       });
-
     },
+
 
     //   fetchCategoryList({ commit }) {
     //     return new Promise(resolve => {
@@ -67,11 +64,11 @@ export default new Vuex.Store({
     //       commit("setCategoryList", res);
     //     });
     //   },
-    upgradeData({ commit, dispatch }, payload) {
-      // updateData
-      dispatch('fetchCategoryList')
-      commit('setPaymentListData', payload)
-    },
+    //   upgradeData({ commit, dispatch }, payload) {
+    //     // updateData
+    //     dispatch('fetchCategoryList')
+    //     commit('setPaymentListData', payload)
+    //   }
     // },
 
     fetchCategoryList({ commit }) {
@@ -84,17 +81,11 @@ export default new Vuex.Store({
         commit('setCategoryList', res);
       });
     },
-
-    // upgradeData({ commit, }, payload) {
-    //   let list = []
-    //   for (let i = 0; i < 5; i++) {
-    //     for (let n = 0; n < 3; n++) {
-    //       list.push(products[i][n])
-    //       payload = list
-    //     }
-    //   } commit('setPaymentListData', payload)
-    //   // dispatch('fetchCategoryList')
-    // }
+    upgradeData({ commit, }, payload) {
+      //updateData
+      // dispatch('fetchCategoryList')
+      commit('setPaymentListData', payload)
+    }
   },
 
   getters: {
@@ -104,4 +95,4 @@ export default new Vuex.Store({
       return state.paymentsList.reduce((res, cur) => res + cur.value, 0)
     }
   }
-})
+});
