@@ -8,8 +8,10 @@
       </nav>
     </div>
     <main>
-      <router-view @openModalWindow="openModal" />
-      <form-modal-window :settings="modalSettings" @close="closeModal" />
+      <router-view />
+      <form-modal-window :settings="modalSettings" />
+      <!-- <router-view @openModalWindow="openModal" /> -->
+      <!-- <form-modal-window :settings="modalSettings" @close="closeModal" /> -->
       <!-- <form-modal-window :settings="modalSettings" @close="closeModal" />
       <form-modal-window @close="addPaymentFormShow = !addPaymentFormShow" />
       <button @click="addPaymentFormShow = true">666</button> -->
@@ -30,15 +32,26 @@ export default {
     };
   },
   methods: {
-    openModal(settings) {
-      this.modalSettings = settings;
+    onShow(settings) {
+      this.modalSettings = settings.settings;
     },
-    closeModal() {
+    onHide() {
       this.modalSettings = {};
     },
+    // openModal(settings) {
+    //   this.modalSettings = settings;
+    // },
+    // closeModal() {
+    //   this.modalSettings = {};
+    // },
   },
   created() {
     this.$store.dispatch("fetchData");
+    // this.$modal.show();
+  },
+  mounted() {
+    this.$modal.EventBus.$on("show", this.onShow);
+    this.$modal.EventBus.$on("hide", this.onHide);
   },
 };
 </script>

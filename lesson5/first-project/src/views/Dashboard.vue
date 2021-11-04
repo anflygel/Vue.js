@@ -79,10 +79,14 @@ export default {
       addData: "addPaymentListData",
     }),
     openModalAddPaymentForm() {
-      this.$emit("openModalWindow", {
+      this.$modal.show("paymentForm", {
         header: "Add payment cost",
         content: "addpaymentform",
       });
+      // this.$emit("openModalWindow", {
+      //   header: "Add payment cost",
+      //   content: "addpaymentform",
+      // });
     },
     changePage(p) {
       this.page = p;
