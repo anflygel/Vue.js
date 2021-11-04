@@ -1,8 +1,4 @@
 <template>
-  <!-- <div :class="[$style.wrapper]"> -->
-  <!-- <div class="itemobj">
-    {{ items }}
-  </div> -->
   <div class="itemobj">
     <div v-for="(item, idx) in items" :key="idx">
       <table>

@@ -1,10 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import products from "./products"
 
 Vue.use(Vuex)
-
-
 
 function getCurrentDate() {
   const today = new Date();
@@ -53,24 +50,6 @@ export default new Vuex.Store({
       });
     },
 
-
-    //   fetchCategoryList({ commit }) {
-    //     return new Promise(resolve => {
-    //       setTimeout(() => {
-    //         const items = ['Sport', 'Food', 'Education', 'Internet'];
-    //         resolve(items)
-    //       }, 500);
-    //     }).then(res => {
-    //       commit("setCategoryList", res);
-    //     });
-    //   },
-    //   upgradeData({ commit, dispatch }, payload) {
-    //     // updateData
-    //     dispatch('fetchCategoryList')
-    //     commit('setPaymentListData', payload)
-    //   }
-    // },
-
     fetchCategoryList({ commit }) {
       return new Promise(resolve => {
         setTimeout(() => {
@@ -83,7 +62,6 @@ export default new Vuex.Store({
     },
     upgradeData({ commit, }, payload) {
       //updateData
-      // dispatch('fetchCategoryList')
       commit('setPaymentListData', payload)
     }
   },

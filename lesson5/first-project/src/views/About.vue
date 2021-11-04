@@ -9,3 +9,10 @@ export default {
   name: "About",
 };
 </script>
+
+<style scoped>
+.about {
+  display: flex;
+  justify-content: center;
+}
+</style>

@@ -1,9 +1,7 @@
 <template>
-  <!-- <div :class="[$style.wrapper]"> -->
   <div class="addPay">
     <div class="input-flex">
       <input class="table-input" placeholder="Date" v-model="date" />
-      <!-- <input class="table-input" placeholder="Category" v-model="category" /> -->
       <input class="table-input" placeholder="Value" v-model="value" />
       <select-category v-model="category" />
     </div>

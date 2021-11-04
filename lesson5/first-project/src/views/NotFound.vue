@@ -1,5 +1,8 @@
 <template>
-  <h1>NotFound</h1>
+  <div class="notfound">
+    <h1>404</h1>
+    <h2>Дружище, извини, но мы не смогли найти эту страницу…</h2>
+  </div>
 </template>
 
 <script>
@@ -8,5 +11,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.notfound {
+  display: flex;
+
+  flex-direction: column;
+
+  margin: 250px;
+}
 </style>

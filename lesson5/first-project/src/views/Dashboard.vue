@@ -6,10 +6,10 @@
     </header>
     <main>
       <div class="table-one">
-        <button class="table-but" @click="check = !check">
+        <!-- <button class="table-but" @click="check = !check">
           Add new cost +
-        </button>
-        <AddPaymentForm v-show="check" @addNewPayment="addDataToPaymentList" />
+        </button> -->
+        <!-- <AddPaymentForm v-show="check" @addNewPayment="addDataToPaymentList" /> -->
       </div>
       <hr />
       <div class="table">
@@ -28,25 +28,29 @@
         :cur="page"
         :n="count"
       />
+      <button class="but-add-mod" @click="openModalAddPaymentForm">Add</button>
     </main>
   </div>
 </template>
 
 <script>
 import PaymentsDisplay from "../components/PaymentsDisplay";
-import AddPaymentForm from "../components/AddPaymentForm";
+// import AddPaymentForm from "../components/AddPaymentForm";
 import { mapMutations, mapGetters } from "vuex";
 import Pagination from "../components/Pagination.vue";
+// import FormModalWindow from "../components/FormModalWindow.vue";
 
 export default {
   name: "Dashboard",
   components: {
     PaymentsDisplay,
-    AddPaymentForm,
+    // AddPaymentForm,
     Pagination,
+    // FormModalWindow,
   },
   data() {
     return {
+      addPaymentFormShow: false,
       check: false,
       page: 1,
       count: 10,
@@ -74,6 +78,12 @@ export default {
       myMutationName: "setPaymentListData",
       addData: "addPaymentListData",
     }),
+    openModalAddPaymentForm() {
+      this.$emit("openModalWindow", {
+        header: "Add payment cost",
+        content: "addpaymentform",
+      });
+    },
     changePage(p) {
       this.page = p;
     },
@@ -81,9 +91,6 @@ export default {
       const date = new Date();
       const data = { ...item, ...{ id: date.getMilliseconds() } };
       this.addData(data);
-      // this.$router.push({
-      //   name: "About",
-      // });
     },
   },
   mounted() {
@@ -137,5 +144,13 @@ export default {
 
 .table-form {
   margin: 20px;
+}
+
+.but-add-mod {
+  position: absolute;
+  top: 45px;
+  left: 45px;
+  padding: 10px 55px;
+  margin: 25px;
 }
 </style>
