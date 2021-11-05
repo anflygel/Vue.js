@@ -9,7 +9,10 @@
     </div>
     <main>
       <router-view />
-      <form-modal-window :settings="modalSettings" v-if="modalName" />
+
+      <transition name="fade">
+        <form-modal-window :settings="modalSettings" v-if="modalName" />
+      </transition>
       <!-- <form-modal-window :settings="modalSettings" /> -->
       <!-- <router-view @openModalWindow="openModal" /> -->
       <!-- <form-modal-window :settings="modalSettings" @close="closeModal" /> -->
@@ -62,10 +65,20 @@ export default {
 };
 </script>
 
-<style lang="scss" module>
+<style lang="scss">
 nav {
   margin: 25px;
   display: flex;
   justify-content: space-around;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.6s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
