@@ -3,6 +3,15 @@
     <header>
       <div class="header">My personal costs</div>
       <h3>Total: {{ getFPV }}</h3>
+      <router-link to="/dashboard/add/payment/Sport?value=400"
+        >Sport400</router-link
+      >
+      /
+      <router-link to="/dashboard/add/payment/IT?value=500">IT500</router-link>
+      /
+      <router-link to="/dashboard/add/payment/Auto?value=600"
+        >Auto600</router-link
+      >
     </header>
     <main>
       <div class="table-one">
@@ -57,6 +66,16 @@ export default {
       pageName: "",
     };
   },
+  watch: {
+    "$route.params": {
+      handler: function (newValue, oldValue) {
+        this.validateRouteParams();
+        console.log("change route", newValue, oldValue);
+      },
+      deep: true,
+      immediate: false,
+    },
+  },
   computed: {
     ...mapGetters({
       paymentsList: "getPaymentsList",
@@ -96,6 +115,15 @@ export default {
       const data = { ...item, ...{ id: date.getMilliseconds() } };
       this.addData(data);
     },
+    validateRouteParams() {
+      const { action, category, value } = this.$route.params;
+      if (category && category === "payment") {
+        console.log(action, category, value); //выбор категории
+      }
+    },
+  },
+  created() {
+    this.validateRouteParams();
   },
   mounted() {
     const page = this.$route.params.page;
