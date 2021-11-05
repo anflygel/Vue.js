@@ -1,0 +1,77 @@
+<template>
+  <div class="addPay">
+    <div class="input-flex">
+      <input class="table-input" placeholder="Date" v-model="date" />
+      <input class="table-input" placeholder="Value" v-model="value" />
+      <select-category v-model="category" />
+    </div>
+    <div class="button-flex">
+      <button class="table-input-button" @click="onSaveClick">Add +</button>
+    </div>
+  </div>
+</template>
+<script>
+import SelectCategory from "./SelectCategory.vue";
+
+export default {
+  name: "AddPaymentForm",
+  components: { SelectCategory },
+  data() {
+    return {
+      date: "",
+      category: "",
+      value: "",
+    };
+  },
+  computed: {
+    getCurrentDate() {
+      const today = new Date();
+      const d = today.getDate();
+      const m = today.getMonth() + 1;
+      const y = today.getFullYear();
+      return `${d}.${m}.${y}`;
+    },
+  },
+  methods: {
+    onSaveClick() {
+      const data = {
+        date: this.date || this.getCurrentDate,
+
+        category: this.category,
+
+        value: +this.value,
+      };
+      this.$emit("addNewPayment", data);
+    },
+  },
+};
+</script>
+<style lang="scss" scoped>
+.addPay {
+  width: 500px;
+  margin: 0 25px 25px 25px;
+}
+
+.table-input {
+  margin: 5px;
+  padding: 5px;
+}
+
+.input-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-flex {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table-input-button {
+  margin: 10px;
+  width: 150px;
+  padding: 10px 15px;
+  background: rgb(44, 235, 44);
+  border-color: rgb(105, 255, 173);
+}
+</style>
