@@ -4,8 +4,9 @@
       <h1>{{ settings.header }}</h1>
     </div>
     <div class="content">
-      <add-payment-form v-if="settings.content === 'addpaymentform'" />
-      <auth-form v-if="settings.content === 'auth'" />
+      <!-- <add-payment-form v-if="settings.content === 'addpaymentform'" />
+      <auth-form v-if="settings.content === 'auth'" /> -->
+      <component :is="settings.content" />
     </div>
     <div class="content">
       <button class="but-close-mod" @click="onClose">Close</button>

@@ -81,7 +81,7 @@ export default {
     openModalAddPaymentForm() {
       this.$modal.show("paymentForm", {
         header: "Add payment cost",
-        content: "addpaymentform",
+        content: "AddPaymentForm", //заменили addpaymentform
       });
       // this.$emit("openModalWindow", {
       //   header: "Add payment cost",

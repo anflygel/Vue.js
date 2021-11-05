@@ -9,7 +9,8 @@
     </div>
     <main>
       <router-view />
-      <form-modal-window :settings="modalSettings" />
+      <form-modal-window :settings="modalSettings" v-if="modalName" />
+      <!-- <form-modal-window :settings="modalSettings" /> -->
       <!-- <router-view @openModalWindow="openModal" /> -->
       <!-- <form-modal-window :settings="modalSettings" @close="closeModal" /> -->
       <!-- <form-modal-window :settings="modalSettings" @close="closeModal" />
@@ -20,23 +21,28 @@
 </template>
 
 <script>
-import FormModalWindow from "./components/FormModalWindow.vue";
+// import FormModalWindow from "./components/FormModalWindow.vue";
 export default {
   name: "App",
-  components: { FormModalWindow },
+  components: {
+    FormModalWindow: () => import("./components/FormModalWindow.vue"),
+  },
   data() {
     return {
       page: 1,
       count: 10,
       modalSettings: {},
+      modalName: "",
     };
   },
   methods: {
     onShow(settings) {
+      this.modalName = settings.name; //add
       this.modalSettings = settings.settings;
     },
     onHide() {
       this.modalSettings = {};
+      this.modalName = {}; //add
     },
     // openModal(settings) {
     //   this.modalSettings = settings;
