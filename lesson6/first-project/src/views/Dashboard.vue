@@ -115,10 +115,14 @@ export default {
       const data = { ...item, ...{ id: date.getMilliseconds() } };
       this.addData(data);
     },
+
     validateRouteParams() {
       const { action, category, value } = this.$route.params;
+
       if (category && category === "payment") {
-        console.log(action, category, value); //выбор категории
+        this.openModalAddPaymentForm();
+
+        console.log(action, category, value);
       }
     },
   },

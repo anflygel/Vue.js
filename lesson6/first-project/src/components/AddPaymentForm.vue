@@ -1,9 +1,19 @@
 <template>
   <div class="addPay">
     <div class="input-flex">
-      <input class="table-input" placeholder="Date" v-model="date" />
-      <input class="table-input" placeholder="Value" v-model="value" />
-      <select-category v-model="category" />
+      <input
+        id="date-input"
+        class="table-input"
+        placeholder="Date"
+        v-model="date"
+      />
+      <input
+        id="value-input"
+        class="table-input"
+        placeholder="Value"
+        v-model="value"
+      />
+      <select-category id="category-select" v-model="category" />
     </div>
     <div class="button-flex">
       <button class="table-input-button" @click="onSaveClick">Add +</button>
