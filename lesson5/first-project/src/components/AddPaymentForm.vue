@@ -32,6 +32,16 @@ export default {
       value: "",
     },
   },
+  watch: {
+    "$route.params": {
+      handler: function (newValue, oldValue) {
+        this.validateRouteParams();
+        console.log("change route", newValue, oldValue);
+      },
+      deep: true,
+      immediate: false,
+    },
+  },
   computed: {
     getCurrentDate() {
       const today = new Date();
@@ -52,6 +62,25 @@ export default {
       };
       this.$emit("addNewPayment", this.linkrout, data);
     },
+    validateRouteParams() {
+      const { action, category, value } = this.$route.params;
+      if (category && category === "payment") {
+        this.linkrout = {
+          date: this.getCurrentDate,
+
+          category: value,
+
+          value: +this.$route.query?.value,
+        };
+        console.log(this.linkrout, value, action); //выбор категории
+      }
+    },
+  },
+  created() {
+    this.validateRouteParams();
+    // this.date = this.linkrout.date;
+    // this.category = this.linkrout.category;
+    // this.value = this.linkrout.value;
   },
 };
 </script>

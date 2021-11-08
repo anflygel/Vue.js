@@ -14,6 +14,7 @@
     <router-link to="/dashboard/add/payment/Auto?value=600"
       >Auto600</router-link
     >
+
     <main>
       <div class="table-one">
         <button class="table-but" @click="check = !check">
@@ -73,7 +74,7 @@ export default {
         this.validateRouteParams();
         console.log("change route", newValue, oldValue);
       },
-      deep: true,
+      deep: false,
       immediate: false,
     },
   },
