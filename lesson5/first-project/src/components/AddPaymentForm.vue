@@ -2,10 +2,10 @@
   <!-- <div :class="[$style.wrapper]"> -->
   <div class="addPay">
     <div class="input-flex">
-      <input class="table-input" placeholder="Date" v-model="date" />
+      <input class="table-input" placeholder="Date" v-model="linkrout.date" />
       <!-- <input class="table-input" placeholder="Category" v-model="category" /> -->
-      <input class="table-input" placeholder="Value" v-model="value" />
-      <select-category v-model="category" />
+      <input class="table-input" placeholder="Value" v-model="linkrout.value" />
+      <select-category v-model="linkrout.category" />
     </div>
     <div class="button-flex">
       <button class="table-input-button" @click="onSaveClick">Add +</button>
@@ -25,6 +25,13 @@ export default {
       value: "",
     };
   },
+  props: {
+    linkrout: {
+      date: "",
+      category: "",
+      value: "",
+    },
+  },
   computed: {
     getCurrentDate() {
       const today = new Date();
@@ -43,7 +50,7 @@ export default {
 
         value: +this.value,
       };
-      this.$emit("addNewPayment", data);
+      this.$emit("addNewPayment", this.linkrout, data);
     },
   },
 };

@@ -4,12 +4,26 @@
       <div class="header">My personal costs</div>
       <h3>Total: {{ getFPV }}</h3>
     </header>
+
+    <router-link to="/dashboard/add/payment/Sport?value=400"
+      >Sport400</router-link
+    >
+    /
+    <router-link to="/dashboard/add/payment/IT?value=500">IT500</router-link>
+    /
+    <router-link to="/dashboard/add/payment/Auto?value=600"
+      >Auto600</router-link
+    >
     <main>
       <div class="table-one">
         <button class="table-but" @click="check = !check">
           Add new cost +
         </button>
-        <AddPaymentForm v-show="check" @addNewPayment="addDataToPaymentList" />
+        <AddPaymentForm
+          v-show="check"
+          :linkrout="linkrout"
+          @addNewPayment="addDataToPaymentList"
+        />
       </div>
       <hr />
       <div class="table">
@@ -53,6 +67,16 @@ export default {
       pageName: "",
     };
   },
+  watch: {
+    "$route.params": {
+      handler: function (newValue, oldValue) {
+        this.validateRouteParams();
+        console.log("change route", newValue, oldValue);
+      },
+      deep: true,
+      immediate: false,
+    },
+  },
   computed: {
     ...mapGetters({
       paymentsList: "getPaymentsList",
@@ -67,6 +91,13 @@ export default {
         count * (page - 1),
         count * (page - 1) + count
       );
+    },
+    getCurrentDate() {
+      const today = new Date();
+      const d = today.getDate();
+      const m = today.getMonth() + 1;
+      const y = today.getFullYear();
+      return `${d}.${m}.${y}`;
     },
   },
   methods: {
@@ -85,7 +116,24 @@ export default {
       //   name: "About",
       // });
     },
+    validateRouteParams() {
+      const { action, category, value } = this.$route.params;
+      if (category && category === "payment") {
+        this.linkrout = {
+          date: this.getCurrentDate,
+
+          category: value,
+
+          value: +this.$route.query?.value,
+        };
+        console.log(this.linkrout, value, action); //выбор категории
+      }
+    },
   },
+  created() {
+    this.validateRouteParams();
+  },
+
   mounted() {
     const page = this.$route.params.page;
     if (page) {
