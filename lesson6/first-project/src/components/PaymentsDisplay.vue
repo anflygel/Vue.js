@@ -7,6 +7,7 @@
           <td>{{ item.date }}</td>
           <td>{{ item.category }}</td>
           <td>{{ item.value }}</td>
+          <td @click="onClickContextItem($event, item)" class="point">...</td>
         </tr>
       </table>
     </div>
@@ -19,6 +20,35 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    onClickContextItem(event) {
+      console.log(event);
+      const items = [
+        {
+          text: "Edit",
+          action: () => {
+            console.log("edit");
+          },
+        },
+        {
+          text: "Delete",
+          action: () => {
+            console.log("Delete");
+          },
+        },
+      ];
+
+      this.$context.show({ event, items });
+    },
+    actionDelete(id) {
+      //mutation deleteItem
+      console.log(id);
+      this.$context.close();
     },
   },
 };
@@ -44,5 +74,10 @@ th {
   background: rgb(209, 209, 209); /* Цвет фона ячеек */
   padding: 15px; /* Поля вокруг текста */
   width: 150px;
+}
+
+.point {
+  width: 15px;
+  cursor: pointer;
 }
 </style>

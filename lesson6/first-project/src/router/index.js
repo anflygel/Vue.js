@@ -19,12 +19,12 @@ const routes = [
     name: "Dashboard",
     component: () => import(/*webpackChunkName: "Dashboard"*/ '../views/Dashboard.vue')
   },
-  {
-    path: "/dashboard/:action/:category/:value",
-    name: "Dashboard",
+  // {
+  //   path: "/dashboard/:action/:category/:value",
+  //   name: "Dashboard",
 
-    component: () => import(/*webpackChunkName: "Dashboard"*/ '../views/Dashboard.vue')
-  },
+  //   component: () => import(/*webpackChunkName: "Dashboard"*/ '../views/Dashboard.vue')
+  // },
 
   {
     path: '/about*',

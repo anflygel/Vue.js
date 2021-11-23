@@ -3,22 +3,13 @@
     <header>
       <div class="header">My personal costs</div>
       <h3>Total: {{ getFPV }}</h3>
-      <router-link to="/dashboard/add/payment/Sport?value=400"
-        >Sport400</router-link
-      >
-      /
-      <router-link to="/dashboard/add/payment/IT?value=500">IT500</router-link>
-      /
-      <router-link to="/dashboard/add/payment/Auto?value=600"
-        >Auto600</router-link
-      >
     </header>
     <main>
       <div class="table-one">
-        <!-- <button class="table-but" @click="check = !check">
+        <button class="table-but" @click="check = !check">
           Add new cost +
-        </button> -->
-        <!-- <AddPaymentForm v-show="check" @addNewPayment="addDataToPaymentList" /> -->
+        </button>
+        <AddPaymentForm v-show="check" @addNewPayment="addDataToPaymentList" />
       </div>
       <hr />
       <div class="table">
@@ -26,6 +17,7 @@
         <p class="text-table">Date</p>
         <p class="text-table">Category</p>
         <p class="text-table">Value</p>
+        <p class="text-table point-menu">*</p>
       </div>
       <hr />
       <div class="table-form">
@@ -44,7 +36,7 @@
 
 <script>
 import PaymentsDisplay from "../components/PaymentsDisplay";
-// import AddPaymentForm from "../components/AddPaymentForm";
+import AddPaymentForm from "../components/AddPaymentForm";
 import { mapMutations, mapGetters } from "vuex";
 import Pagination from "../components/Pagination.vue";
 // import FormModalWindow from "../components/FormModalWindow.vue";
@@ -53,7 +45,7 @@ export default {
   name: "Dashboard",
   components: {
     PaymentsDisplay,
-    // AddPaymentForm,
+    AddPaymentForm,
     Pagination,
     // FormModalWindow,
   },
@@ -66,16 +58,16 @@ export default {
       pageName: "",
     };
   },
-  watch: {
-    "$route.params": {
-      handler: function (newValue, oldValue) {
-        this.validateRouteParams();
-        console.log("change route", newValue, oldValue);
-      },
-      deep: true,
-      immediate: false,
-    },
-  },
+  // watch: {
+  //   "$route.params": {
+  //     handler: function (newValue, oldValue) {
+  //       this.validateRouteParams();
+  //       console.log("change route", newValue, oldValue);
+  //     },
+  //     deep: true,
+  //     immediate: false,
+  //   },
+  // },
   computed: {
     ...mapGetters({
       paymentsList: "getPaymentsList",
@@ -116,19 +108,19 @@ export default {
       this.addData(data);
     },
 
-    validateRouteParams() {
-      const { action, category, value } = this.$route.params;
+    // validateRouteParams() {
+    //   const { action, category, value } = this.$route.params;
 
-      if (category && category === "payment") {
-        this.openModalAddPaymentForm();
+    //   if (category && category === "payment") {
+    //     this.openModalAddPaymentForm();
 
-        console.log(action, category, value);
-      }
-    },
+    //     console.log(action, category, value);
+    //   }
+    // },
   },
-  created() {
-    this.validateRouteParams();
-  },
+  // created() {
+  //   this.validateRouteParams();
+  // },
   mounted() {
     const page = this.$route.params.page;
     if (page) {
@@ -188,5 +180,10 @@ export default {
   left: 45px;
   padding: 10px 55px;
   margin: 25px;
+}
+
+.point-menu {
+  width: 15px;
+  color: white;
 }
 </style>

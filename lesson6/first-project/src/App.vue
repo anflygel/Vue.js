@@ -13,21 +13,21 @@
       <transition name="fade">
         <form-modal-window :settings="modalSettings" v-if="modalName" />
       </transition>
-      <!-- <form-modal-window :settings="modalSettings" /> -->
-      <!-- <router-view @openModalWindow="openModal" /> -->
-      <!-- <form-modal-window :settings="modalSettings" @close="closeModal" /> -->
-      <!-- <form-modal-window :settings="modalSettings" @close="closeModal" />
-      <form-modal-window @close="addPaymentFormShow = !addPaymentFormShow" />
-      <button @click="addPaymentFormShow = true">666</button> -->
+
+      <transition name="fade">
+        <context-menu />
+      </transition>
     </main>
   </div>
 </template>
 
 <script>
+import ContextMenu from "./components/ContextMenu.vue";
 // import FormModalWindow from "./components/FormModalWindow.vue";
 export default {
   name: "App",
   components: {
+    ContextMenu,
     FormModalWindow: () => import("./components/FormModalWindow.vue"),
   },
   data() {
